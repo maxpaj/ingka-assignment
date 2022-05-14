@@ -1,0 +1,15 @@
+$card-width: 200px;
+
+.card {
+  width: $card-width;
+}
+
+.cardTitle {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cardImage {
+  width: $card-width;
+}
