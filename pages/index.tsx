@@ -1,7 +1,25 @@
 import type { NextPage } from "next";
+import { AppContext } from "next/app";
 import Head from "next/head";
+import { AppConfig } from "../app-config";
+import { Product } from "../models/product";
 
-const Home: NextPage = () => {
+type HomeProps = {
+  products: Product[];
+};
+
+export async function getServerSideProps(context: AppContext) {
+  const res = await fetch(`${AppConfig.BASE_URL}/api/products`);
+  const data = await res.json();
+
+  return {
+    props: {
+      products: data,
+    },
+  };
+}
+
+const Home: NextPage<HomeProps> = ({ products }) => {
   return (
     <>
       <Head>
@@ -11,6 +29,10 @@ const Home: NextPage = () => {
       </Head>
 
       <h1>Products</h1>
+
+      {products.map((p) => (
+        <p key={p.id}>{p.title}</p>
+      ))}
     </>
   );
 };
