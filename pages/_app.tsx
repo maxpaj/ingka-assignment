@@ -7,7 +7,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <main>
         <Component {...pageProps} />
       </main>
-      <footer></footer>
     </div>
   );
 }
