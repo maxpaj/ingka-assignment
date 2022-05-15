@@ -16,16 +16,18 @@ export function Card({
 }: CardProps) {
   return (
     <div className={`${styles.card} ${className}`} {...props}>
-      <Image
-        className={styles.cardImage}
-        data-testid="card-image"
-        src={imageSrc}
-        objectFit="cover"
-        layout="fixed"
-        width="200"
-        height="200"
-        alt={title}
-      />
+      <div className={styles.cardImage}>
+        <Image
+          data-testid="card-image"
+          src={imageSrc}
+          objectFit="cover"
+          layout="fixed"
+          width="200"
+          height="200"
+          alt={title}
+        />
+      </div>
+
       <div className={styles.cardBody}>
         <h3 className={styles.cardTitle} data-testid="card-title">
           {title}
