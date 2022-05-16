@@ -3,6 +3,8 @@ version: "3"
 services:
   app:
     image: ingka-assignment
-    build: .
+    build:
+      target: development
+      context: .
     ports:
       - 3000:3000
