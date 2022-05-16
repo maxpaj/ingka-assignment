@@ -1,6 +1,6 @@
 # Install
 
-For local machine development, `node` and `npm` will suffice. Use `npm install` to install node packages.
+For local machine development, `node@16` and `npm@8` will suffice. Use `npm install` to install node packages.
 
 For development with Docker, [install Docker](https://docs.docker.com/get-docker/).
 
@@ -29,13 +29,13 @@ npm run test
 Inside Docker container:
 
 ```
-docker build -t ingka-assignment --target test .
-docker run -it --rm --name ingka-assignmen-test ingka-assignment
+docker build -t ingka-assignment-test --target test .
+docker run --rm --name ingka-assignment-test ingka-assignment-test
 ```
 
 # Deploy
 
-GitHub actions publishes a Docker image to [maxpaju@Docker Hub](https://hub.docker.com/r/maxpaju/ingka-assignment/tags).
+GitHub actions CI/CD publishes a Docker image to [maxpaju@Docker Hub](https://hub.docker.com/r/maxpaju/ingka-assignment/tags).
 
 # Considerations
 
