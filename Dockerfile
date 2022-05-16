@@ -1,15 +1,10 @@
-FROM node:16-alpine as base
-
+FROM node:16 as base
 WORKDIR /app
-
-# Copy over package.json and install packages
-COPY package.json ./
-COPY package-lock.json ./
-
-RUN npm ci
 
 # Copy app files
 COPY . .
+
+RUN npm ci
 
 FROM base as test
 CMD ["npm", "run", "test"]
@@ -18,11 +13,18 @@ FROM base as development
 CMD ["npm", "run", "dev"]
 
 FROM base as build
-CMD ["npm", "run", "build"]
+RUN npm run build
 
+FROM node:16-alpine as production
+WORKDIR /app
 
-FROM base as production
-EXPOSE 8080
+COPY --from=build ./app/.next ./.next
+COPY --from=build ./app/package.json ./package.json
+COPY --from=build ./app/package-lock.json ./package-lock.json
+
+RUN npm ci --only=production
+
+EXPOSE 3000
 
 # Run the app
 CMD ["npm", "run", "start"]
