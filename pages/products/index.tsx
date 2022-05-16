@@ -124,7 +124,13 @@ function ProductsPage({ products, error }: ProductsPageProps) {
       <ProductList products={filteredProducts} />
 
       <div className="my-4 text-center text-sm">
-        Showing {filteredProducts.length} out of {products.length}
+        {filteredProducts.length === 0 ? (
+          <>No matching products</>
+        ) : (
+          <>
+            Showing {filteredProducts.length} out of {products.length}
+          </>
+        )}
       </div>
     </>
   );
