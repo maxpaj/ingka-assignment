@@ -13,7 +13,7 @@ type ProductPageProps = {
 const productsRepository = new ProductsRepository();
 
 export const getServerSideProps: GetServerSideProps<
-  {},
+  { [key: string]: any },
   { id: string }
 > = async (context) => {
   const idRaw = context.params && context.params.id;
@@ -21,8 +21,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!idRaw) {
     return {
       props: {
-        error: "Could not find product",
-        product: undefined,
+        error: "Could not find a specified product ID",
       },
     };
   }
@@ -37,10 +36,11 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   } catch (e) {
+    const { message } = e as Error;
+
     return {
       props: {
-        error: "Unknown error",
-        product: undefined,
+        error: message,
       },
     };
   }
@@ -51,11 +51,11 @@ export default function ProductPage({ product, error }: ProductPageProps) {
   const { id } = router.query;
 
   if (error) {
-    return <h1>{error}</h1>;
+    return <p>{error}</p>;
   }
 
   if (!product) {
-    return <h1>Could not find product with ID {id}</h1>;
+    return <p>Could not find product with ID {id}</p>;
   }
 
   return (
