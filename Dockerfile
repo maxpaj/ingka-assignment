@@ -1,16 +1,28 @@
-FROM node:16-alpine
+FROM node:16-alpine as base
 
 WORKDIR /app
 
 # Copy over package.json and install packages
 COPY package.json ./
-RUN npm install
+COPY package-lock.json ./
+
+RUN npm ci
 
 # Copy app files
-COPY next.config.js ./
-COPY pages ./pages
-COPY public ./public
-COPY styles ./styles
+COPY . .
+
+FROM base as test
+CMD ["npm", "run", "test"]
+
+FROM base as development
+CMD ["npm", "run", "dev"]
+
+FROM base as build
+CMD ["npm", "run", "build"]
+
+
+FROM base as production
+EXPOSE 8080
 
 # Run the app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
