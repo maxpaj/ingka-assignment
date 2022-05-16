@@ -108,7 +108,6 @@ function ProductsPage({ products, error }: ProductsPageProps) {
 
               return (
                 <Button
-                  outline={true}
                   selected={isSelected}
                   key={prf.min}
                   onClick={(_) => setPriceRange(prf)}
