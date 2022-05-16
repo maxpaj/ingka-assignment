@@ -2,12 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { Card } from "./Card";
 
 describe("Card", () => {
-  it("should display a title in the card", () => {
-    render(<Card title={"Card title"} imageSrc="https://image-src.jpg" />);
-    const title = screen.getByTestId("card-title");
-    expect(title).toBeInTheDocument();
-  });
-
   it("should display an image in the card", () => {
     render(<Card title={"Card title"} imageSrc="https://image-src.jpg" />);
     const title = screen.getByTestId("card-image");

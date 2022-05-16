@@ -1,40 +1,31 @@
 import Image from "next/image";
 import { HTMLProps } from "react";
-import styles from "./Card.module.scss";
 
 type CardProps = {
-  title: string;
+  imageAlt?: string;
   imageSrc: string;
 } & HTMLProps<HTMLDivElement>;
 
 export function Card({
-  title,
+  imageAlt,
   imageSrc,
   className = "",
   children = <></>,
   ...props
 }: CardProps) {
   return (
-    <div className={`${styles.card} ${className}`} {...props}>
-      <div className={styles.cardImage}>
+    <div className={`border w-56 border-gray-300 ${className}`} {...props}>
+      <div className="relative h-48">
         <Image
           data-testid="card-image"
           src={imageSrc}
           objectFit="cover"
-          layout="fixed"
-          width="200"
-          height="200"
-          alt={title}
+          layout="fill"
+          alt={imageAlt}
         />
       </div>
 
-      <div className={styles.cardBody}>
-        <h3 className={styles.cardTitle} data-testid="card-title">
-          {title}
-        </h3>
-
-        {children}
-      </div>
+      <div className="pt-1 px-2 pb-2 border-t">{children}</div>
     </div>
   );
 }
