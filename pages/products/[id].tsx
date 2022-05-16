@@ -79,7 +79,7 @@ export default function ProductPage({ product, error }: ProductPageProps) {
           layout="fixed"
           width="400"
           height="400"
-          alt=""
+          alt={product.description}
         />
 
         <div>
