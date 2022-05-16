@@ -1,3 +1,44 @@
+# Considerations
+
+- What tools should I use to quickly put together an MVP and get something out the door?
+- Use something that IKEA is already using
+  - https://techradar.ingka.com/
+- Searching a product by price should probably not be done using a free text input - could easily be improved
+- Sketch in the specification is very vague and seems incorrect in some places - what are the options for those points?
+
+# Questions
+
+- What to do with the /products route? Fall back to home page?
+- What do the prices refer to, dollars?
+- Dockerized delivery - refers to deploying with Docker or building with Docker?
+
+# Further additions
+
+- Improve administration of products
+  - Use a CMS for content, something like Strapi (https://strapi.io/) or Contentful (https://www.contentful.com/)
+- How do we apply some security first principles?
+  - Host with a provider that takes care of DDoS? Vercel, Cloudflare
+  - Rate limit requests
+- How to improve the SEO for the site?
+  - OpenGraph tags
+- Accessibility
+  - What is the minimum necessary to have the site be accessible to vision impaired?
+- Improved performance (lower latency means more sales)
+  - Statically generated product pages
+  - Should there be some kind of infinite scrolling on the product list page?
+- Improve quality control
+  - Add E2E-test
+- Design system
+  - Color scheme, theming variables etc. to keep everything together when making changes on the design
+- i18n
+  - Translations
+  - Currencies
+- Add error tracking
+- Add metrics tracking
+- Infrastructure as Code
+
+# Next.js
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
