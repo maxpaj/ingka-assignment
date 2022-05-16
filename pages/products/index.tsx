@@ -1,14 +1,15 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import { AppConfig } from "../../app-config";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { ProductList } from "../../components/ProductList/ProductList";
 import { Product } from "../../models/product";
+import { ProductsRepository } from "../../repository/products/products.repository";
 
 type ProductsPageProps = {
   products: Product[];
+  error?: string;
 };
 
 type PriceRange = {
@@ -16,15 +17,27 @@ type PriceRange = {
   max?: number;
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${AppConfig.BASE_URL}/api/products`);
-  const data = await res.json();
+const productsRepository = new ProductsRepository();
 
-  return {
-    props: {
-      products: data,
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const products = await productsRepository.getAll();
+
+    return {
+      props: {
+        products,
+      },
+    };
+  } catch (e) {
+    const { message } = e as Error;
+
+    return {
+      props: {
+        products: [],
+        error: message,
+      },
+    };
+  }
 };
 
 const priceRangeFilters: PriceRange[] = [
@@ -45,9 +58,13 @@ const defaultPriceFilter: PriceRange = {
   min: 0,
 };
 
-function ProductsPage({ products }: ProductsPageProps) {
+function ProductsPage({ products, error }: ProductsPageProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [priceRange, setPriceRange] = useState<PriceRange>(defaultPriceFilter);
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   const filteredProducts = products.filter(
     (p) =>
