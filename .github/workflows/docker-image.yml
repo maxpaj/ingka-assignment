@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build and test Docker image
-        run: docker build . --file Dockerfile --target test . --tag ingka-assignment-tests:$(date +%s) && docker run -it --rm --name ingka-assignment-test ingka-assignment-tests:$(date +%s)
+        run: docker build -t ingka-assignment-tests --target test . && docker run -it --rm --name ingka-assignment-test ingka-assignment-tests
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
