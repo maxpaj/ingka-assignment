@@ -1,10 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { ApiError } from "next/dist/server/api-utils";
 import { Product } from "../../../models/product";
-import products from "./products.json";
+import { ProductsRepository } from "../../../repository/products/products.repository";
 
-export default function handler(
+const productsRepository = new ProductsRepository();
+
+export default async function handler(
   _: NextApiRequest,
   res: NextApiResponse<Product[]>
 ) {
-  res.status(200).json(products);
+  try {
+    const products = await productsRepository.getAll();
+
+    return res.status(200).json(
+      products.map((p) => {
+        const { id, title, image, priceDollars } = p;
+        return { id, title, image, priceDollars };
+      })
+    );
+  } catch (error) {
+    throw new ApiError(500, "Could not fetch products");
+  }
 }
