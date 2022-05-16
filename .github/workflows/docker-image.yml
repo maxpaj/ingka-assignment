@@ -23,7 +23,7 @@ jobs:
         run: docker build -t ingka-assignment-tests --target test .
 
       - name: Run test Docker image
-        run: docker run -it --rm --name ingka-assignment-test ingka-assignment-tests
+        run: docker run --rm --name ingka-assignment-test ingka-assignment-tests
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
