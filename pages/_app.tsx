@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="layout">
+    <div className="container mx-auto pt-10">
       <main>
         <Component {...pageProps} />
       </main>
