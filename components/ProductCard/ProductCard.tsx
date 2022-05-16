@@ -17,15 +17,24 @@ export function ProductCard({
 }: ProductCardProps) {
   return (
     <Link href={`/products/${id}`}>
-      <div className={styles.productCard}>
+      <div className="group cursor-pointer">
         <Card
           aria-label={`Click to see details about ${title}`}
           imageSrc={imageSrc}
-          title={title}
+          imageAlt={title}
         >
-          <div className={styles.productPrice}>
-            <span>Price</span>
-            <span data-testid="product-card-price">${priceDollars}</span>
+          <h3
+            className="text-sm group-hover:underline font-bold uppercase"
+            data-testid="card-title"
+          >
+            {title}
+          </h3>
+
+          <div
+            data-testid="product-card-price"
+            className="flex justify-between text-sm"
+          >
+            ${priceDollars}
           </div>
         </Card>
       </div>
